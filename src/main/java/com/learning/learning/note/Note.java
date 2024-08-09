@@ -17,6 +17,7 @@ public class Note {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String title;
+    private Boolean bookmarked;
     private String content;
 
     @ManyToOne
