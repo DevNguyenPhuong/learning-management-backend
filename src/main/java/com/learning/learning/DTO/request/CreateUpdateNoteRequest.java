@@ -1,4 +1,4 @@
-package com.learning.learning.note;
+package com.learning.learning.DTO.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateNoteRequest {
+public class CreateUpdateNoteRequest {
+    private String userId;
     private  String title;
     private  String content;
-    private Boolean bookMarked;
+    private Boolean bookmarked;
+    private String date;
+    private String time;
 }

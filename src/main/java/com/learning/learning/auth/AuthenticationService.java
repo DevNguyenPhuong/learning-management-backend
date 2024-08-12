@@ -1,7 +1,12 @@
 package com.learning.learning.auth;
 
 
+import com.learning.learning.DTO.request.AuthenticationRequest;
+import com.learning.learning.DTO.request.RegisterRequest;
+import com.learning.learning.DTO.response.AuthenticationResponse;
 import com.learning.learning.config.JwtService;
+import com.learning.learning.exception.AppException;
+import com.learning.learning.exception.ErrorCode;
 import com.learning.learning.user.Role;
 import com.learning.learning.user.User;
 import com.learning.learning.user.UserRepository;
@@ -20,6 +25,9 @@ public class AuthenticationService {
     private  final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
+        if(repository.existsByUsername(request.getUsername()))
+            throw new AppException(ErrorCode.USER_EXISTED);
+
         var user = User.builder()
                 .full_name(request.getFull_name())
                 .username(request.getUsername())
@@ -37,6 +45,7 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(user);
 
         return AuthenticationResponse.builder()
+                .id(user.getId())
                 .jwtToken(jwtToken)
                 .full_name(request.getFull_name())
                 .username(request.getUsername())
@@ -61,7 +70,9 @@ public class AuthenticationService {
        var user = repository.findByUsername(request.getUsername()).orElseThrow();
 
         var jwtToken = jwtService.generateToken(user);
+
         return AuthenticationResponse.builder()
+                .id(user.getId())
                 .jwtToken(jwtToken)
                 .full_name(user.getFull_name())
                 .username(request.getUsername())

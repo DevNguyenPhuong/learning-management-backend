@@ -18,6 +18,10 @@ public class Note {
     private String id;
     private String title;
     private Boolean bookmarked;
+    private String date;
+    private String time;
+
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     @ManyToOne

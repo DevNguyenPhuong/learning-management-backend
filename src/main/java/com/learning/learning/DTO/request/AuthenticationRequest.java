@@ -1,4 +1,4 @@
-package com.learning.learning.auth;
+package com.learning.learning.DTO.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

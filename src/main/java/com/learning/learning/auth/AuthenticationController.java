@@ -1,7 +1,11 @@
 package com.learning.learning.auth;
 
+import com.learning.learning.DTO.request.AuthenticationRequest;
+import com.learning.learning.DTO.request.RegisterRequest;
+import com.learning.learning.DTO.response.AuthenticationResponse;
+import com.learning.learning.DTO.response.ApiResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,17 +18,21 @@ public class AuthenticationController {
     private  final AuthenticationService  service;
 
     @PostMapping("/signup")
-    public ResponseEntity<AuthenticationResponse> register(
-            @RequestBody RegisterRequest request
+    public ApiResponse<AuthenticationResponse> register(
+            @RequestBody @Valid RegisterRequest request
     ) {
-     return ResponseEntity.ok(service.register(request));
+        ApiResponse<AuthenticationResponse> response = new ApiResponse<>();
+        response.setData(service.register(request));
+     return response;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> authenticate(
+    public ApiResponse<AuthenticationResponse> authenticate(
             @RequestBody AuthenticationRequest request
     ) {
-        return ResponseEntity.ok(service.authenticate(request));
+        ApiResponse<AuthenticationResponse> response = new ApiResponse<>();
+        response.setData(service.authenticate(request));
+        return response;
     }
 }
 

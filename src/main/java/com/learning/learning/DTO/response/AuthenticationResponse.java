@@ -1,4 +1,4 @@
-package com.learning.learning.auth;
+package com.learning.learning.DTO.response;
 
 import com.learning.learning.user.Role;
 import lombok.AllArgsConstructor;
@@ -10,10 +10,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterRequest {
+public class AuthenticationResponse {
+    private String id;
+    private  String jwtToken;
     private  String full_name;
     private  String username;
-    private  String password;
     private  Integer age;
     private  String gender;
     private  String description;

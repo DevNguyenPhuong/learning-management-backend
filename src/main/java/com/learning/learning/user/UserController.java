@@ -1,8 +1,9 @@
 package com.learning.learning.user;
 
-import com.learning.learning.note.Note;
-import com.learning.learning.note.NoteRepository;
+import com.learning.learning.DTO.response.NoteResponse;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,15 +17,16 @@ import java.util.List;
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 public class UserController {
-    private final NoteRepository noteRepository;
+    private static final Logger log = LoggerFactory.getLogger(UserController.class);
+    private final UserService userService;
     @GetMapping
     public ResponseEntity<String> sayHello() {
         return ResponseEntity.ok("helelo");
     }
 
     @GetMapping("/{userId}/notes")
-    public ResponseEntity<List<Note>> getNotesByUserId(@PathVariable String userId) {
-        // Assuming you have a UserService that can retrieve the User object
-        return ResponseEntity.ok(noteRepository.findAllByUser_Id(userId));
+    public ResponseEntity<List<NoteResponse>> getNotesByUserId(@PathVariable String userId) {
+
+        return ResponseEntity.ok(userService.getUserNotes(userId));
     }
 }
