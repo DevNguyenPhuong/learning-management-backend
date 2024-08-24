@@ -1,6 +1,7 @@
 package com.learning.learning.user;
 
 import com.learning.learning.DTO.response.NoteResponse;
+import com.learning.learning.DTO.response.ScheduleResponse;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,14 +20,16 @@ import java.util.List;
 public class UserController {
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
-    @GetMapping
-    public ResponseEntity<String> sayHello() {
-        return ResponseEntity.ok("helelo");
-    }
 
     @GetMapping("/{userId}/notes")
     public ResponseEntity<List<NoteResponse>> getNotesByUserId(@PathVariable String userId) {
 
         return ResponseEntity.ok(userService.getUserNotes(userId));
+    }
+
+    @GetMapping("/{userId}/schedules")
+    public ResponseEntity<List<ScheduleResponse>> getSchedulesByUserId(@PathVariable String userId) {
+
+        return ResponseEntity.ok(userService.getUserSchedules(userId));
     }
 }

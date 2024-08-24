@@ -1,20 +1,23 @@
 package com.learning.learning.DTO.response;
 
+import com.learning.learning.schedule.Priority;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
+
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class NoteResponse {
+public class ScheduleResponse {
     private String id;
-    private String title;
-    private Boolean bookmarked;
     private String content;
-    private String date;
-    private String time;
+    private Priority priority;
+    private Instant startAt;
+    private Instant endAt;
     private String userId;
 }

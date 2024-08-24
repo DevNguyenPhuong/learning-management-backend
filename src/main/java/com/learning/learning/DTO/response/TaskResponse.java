@@ -1,5 +1,6 @@
 package com.learning.learning.DTO.response;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,12 +10,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class NoteResponse {
+public class TaskResponse {
     private String id;
     private String title;
-    private Boolean bookmarked;
-    private String content;
-    private String date;
-    private String time;
-    private String userId;
+    private Boolean completed;
+    private String scheduleId;
 }
