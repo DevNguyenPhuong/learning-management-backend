@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -17,6 +19,13 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private Boolean completed;
+    private Instant duration;
+    private Instant startAt;
+    private Instant completedAt;
+
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @Column(columnDefinition = "TEXT")
     private String title;

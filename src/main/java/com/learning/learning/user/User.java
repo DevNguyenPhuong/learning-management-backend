@@ -27,13 +27,14 @@ public class User implements UserDetails {
     private  String password; // password
     private  Integer age;
     private  String gender;
-    @Column(columnDefinition = "TEXT")
-    private  String description;
     private  String major;
-    @Column(columnDefinition = "TEXT")
-    private  String objective;
     private  String email;
     private  String experience;
+
+    @Column(columnDefinition = "TEXT")
+    private  String description;
+    @Column(columnDefinition = "TEXT")
+    private  String objective;
 
     @Enumerated(EnumType.STRING)
     private Role role;

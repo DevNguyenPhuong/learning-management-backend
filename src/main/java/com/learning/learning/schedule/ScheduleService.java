@@ -25,18 +25,18 @@ public class ScheduleService {
         var schedule = Schedule.builder()
                 .user(user)
                 .content(request.getContent())
-                .priority(request.getPriority())
-                .startAt(request.getStartAt())
-                .endAt(request.getStartAt() != null ? request.getStartAt() : null)
+                .priority(request.getPriority() != null ? request.getPriority() : null)
+                .startAt(request.getStartAt() != null ? request.getStartAt() : null)
+                .endAt(request.getEndAt() != null ? request.getEndAt() : null)
                 .build();
         scheduleRepository.save(schedule);
 
         return ScheduleResponse.builder()
                 .userId(user.getId())
                 .content(request.getContent())
-                .priority(request.getPriority())
-                .startAt(request.getStartAt())
-                .endAt(request.getStartAt() != null ? request.getStartAt() : null)
+                .priority(request.getPriority() != null ? request.getPriority() : null)
+                .startAt(request.getStartAt() != null ? request.getStartAt() : null)
+                .endAt(request.getEndAt() != null ? request.getEndAt() : null)
                 .build();
     }
 
@@ -53,6 +53,10 @@ public class ScheduleService {
         res.setId(task.getId());
         res.setTitle(task.getTitle());
         res.setCompleted(task.getCompleted());
+        res.setCompletedAt(task.getCompletedAt());
+        res.setStartAt(task.getStartAt());
+        res.setDuration(task.getDuration());
+        res.setStatus(task.getStatus());
         res.setScheduleId(task.getSchedule().getId());
         return res;
     }

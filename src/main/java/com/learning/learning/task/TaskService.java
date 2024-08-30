@@ -20,6 +20,10 @@ public class TaskService {
                 .schedule(schedule)
                 .title(request.getTitle())
                 .completed(request.getCompleted())
+                .completedAt(request.getCompletedAt() != null ? request.getCompletedAt() : null)
+                .startAt(request.getStartAt() != null ? request.getStartAt() : null)
+                .duration(request.getDuration())
+                .status(request.getStatus())
                 .build();
         taskRepository.save(task);
 
@@ -27,6 +31,10 @@ public class TaskService {
                 .id(task.getId())
                 .title(task.getTitle())
                 .completed(task.getCompleted())
+                .startAt(task.getStartAt())
+                .completedAt(task.getCompletedAt())
+                .duration(task.getDuration())
+                .status(task.getStatus())
                 .build();
     }
 
@@ -40,12 +48,20 @@ public class TaskService {
 
         existingTask.setTitle(newTask.getTitle());
         existingTask.setCompleted(newTask.getCompleted());
+        existingTask.setCompletedAt(newTask.getCompletedAt() !=null ? newTask.getCompletedAt() :null);
+        existingTask.setStartAt(newTask.getStartAt() != null ? newTask.getStartAt() :null);
+        existingTask.setDuration(newTask.getDuration());
+        existingTask.setStatus(newTask.getStatus());
         taskRepository.save(existingTask);
 
         return  TaskResponse.builder()
                 .id(newTask.getId())
                 .title(newTask.getTitle())
                 .completed(newTask.getCompleted())
+                .startAt(newTask.getStartAt() != null ? newTask.getStartAt() :null)
+                .completedAt(newTask.getCompletedAt() !=null ? newTask.getCompletedAt() :null)
+                .duration(newTask.getDuration())
+                .status(newTask.getStatus())
                 .build();
     }
 }

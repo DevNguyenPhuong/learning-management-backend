@@ -1,7 +1,9 @@
 package com.learning.learning.user;
 
+import com.learning.learning.DTO.request.UpdateUserRequest;
 import com.learning.learning.DTO.response.NoteResponse;
 import com.learning.learning.DTO.response.ScheduleResponse;
+import com.learning.learning.DTO.response.UpdateUserResponse;
 import com.learning.learning.note.Note;
 import com.learning.learning.note.NoteRepository;
 import com.learning.learning.schedule.Schedule;
@@ -17,6 +19,35 @@ import java.util.stream.Collectors;
 public class UserService {
     private final NoteRepository noteRepository;
     private final ScheduleRepository scheduleRepository;
+    private final UserRepository userRepository;
+
+    public UpdateUserResponse updateUser(UpdateUserRequest newUser, String userId) {
+        User existingUser = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Note not found with id: " + userId));
+
+        existingUser.setFull_name(newUser.getFull_name());
+        existingUser.setGender(newUser.getGender());
+        existingUser.setEmail(newUser.getEmail());
+        existingUser.setAge(newUser.getAge() != null ? newUser.getAge() : null);
+        existingUser.setMajor(newUser.getMajor());
+        existingUser.setExperience(newUser.getExperience());
+        existingUser.setObjective(newUser.getObjective());
+        existingUser.setDescription(newUser.getDescription());
+
+        userRepository.save(existingUser);
+
+        return UpdateUserResponse.builder()
+                .id(newUser.getId())
+                .full_name(newUser.getFull_name())
+                .gender(newUser.getGender())
+                .email(newUser.getEmail())
+                .age(newUser.getAge())
+                .major(newUser.getMajor())
+                .experience(newUser.getExperience())
+                .objective(newUser.getObjective())
+                .description(newUser.getDescription())
+                .build();
+    }
 
     public List<NoteResponse> getUserNotes(String userId) {
         return noteRepository.findAllByUser_Id(userId)
@@ -53,5 +84,11 @@ public class UserService {
         res.setEndAt(schedule.getEndAt());
         res.setUserId(schedule.getUser().getId());
         return res;
+    }
+
+    public ScheduleResponse getUpcomingEvent(String userId) {
+        return scheduleRepository.findUpcomingEventForUser(userId)
+                .map(this::convertToScheduleResponse)
+                .orElse(new ScheduleResponse());
     }
 }
