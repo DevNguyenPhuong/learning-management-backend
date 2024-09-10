@@ -21,5 +21,5 @@ public class TaskResponse {
     private Status status;
     private Instant startAt;
     private Instant completedAt;
-    private Instant duration;
+    private String duration;
 }

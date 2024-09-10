@@ -18,6 +18,7 @@ public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+    private String day;
 
     private Instant startAt;
     private Instant endAt;

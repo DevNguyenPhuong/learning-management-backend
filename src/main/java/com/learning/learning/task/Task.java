@@ -19,7 +19,7 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private Boolean completed;
-    private Instant duration;
+    private String duration;
     private Instant startAt;
     private Instant completedAt;
 

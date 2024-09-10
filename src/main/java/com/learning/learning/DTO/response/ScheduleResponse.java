@@ -15,6 +15,7 @@ import java.time.Instant;
 @NoArgsConstructor
 public class ScheduleResponse {
     private String id;
+    private String day;
     private String content;
     private Priority priority;
     private Instant startAt;

@@ -3,16 +3,23 @@ package com.learning.learning.user;
 import com.learning.learning.DTO.request.UpdateUserRequest;
 import com.learning.learning.DTO.response.NoteResponse;
 import com.learning.learning.DTO.response.ScheduleResponse;
+import com.learning.learning.DTO.response.TaskResponse;
 import com.learning.learning.DTO.response.UpdateUserResponse;
 import com.learning.learning.note.Note;
 import com.learning.learning.note.NoteRepository;
 import com.learning.learning.schedule.Schedule;
 import com.learning.learning.schedule.ScheduleRepository;
+import com.learning.learning.schedule.ScheduleService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +27,8 @@ public class UserService {
     private final NoteRepository noteRepository;
     private final ScheduleRepository scheduleRepository;
     private final UserRepository userRepository;
+    private final ScheduleService scheduleService;
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     public UpdateUserResponse updateUser(UpdateUserRequest newUser, String userId) {
         User existingUser = userRepository.findById(userId)
@@ -75,6 +84,16 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    public List<TaskResponse> getUserSchedulesByDay(String userId, String day) {
+        logger.info("Fetching schedules for userId: {} on day: {}", userId, day);
+        Optional<Schedule> optionalSchedule = scheduleRepository.findByUserIdAndDay(userId, day);
+        if (optionalSchedule.isEmpty()) {
+            return Collections.emptyList();
+        }
+        Schedule schedule = optionalSchedule.get();
+        return scheduleService.getTasks(schedule.getId());
+    }
+
     private ScheduleResponse convertToScheduleResponse(Schedule schedule) {
         ScheduleResponse res = new ScheduleResponse();
         res.setId(schedule.getId());
@@ -91,4 +110,6 @@ public class UserService {
                 .map(this::convertToScheduleResponse)
                 .orElse(new ScheduleResponse());
     }
+
+
 }

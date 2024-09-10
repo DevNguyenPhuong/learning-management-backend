@@ -26,6 +26,7 @@ public class ScheduleService {
                 .user(user)
                 .content(request.getContent())
                 .priority(request.getPriority() != null ? request.getPriority() : null)
+                .day(request.getDay() != null ? request.getDay() : null)
                 .startAt(request.getStartAt() != null ? request.getStartAt() : null)
                 .endAt(request.getEndAt() != null ? request.getEndAt() : null)
                 .build();
@@ -35,6 +36,7 @@ public class ScheduleService {
                 .userId(user.getId())
                 .content(request.getContent())
                 .priority(request.getPriority() != null ? request.getPriority() : null)
+                .day(request.getDay() != null ? request.getDay() : null)
                 .startAt(request.getStartAt() != null ? request.getStartAt() : null)
                 .endAt(request.getEndAt() != null ? request.getEndAt() : null)
                 .build();
@@ -60,4 +62,6 @@ public class ScheduleService {
         res.setScheduleId(task.getSchedule().getId());
         return res;
     }
+
+
 }

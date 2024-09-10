@@ -30,5 +30,4 @@ public class ScheduleController {
         return apiResponse;
     }
 
-
 }

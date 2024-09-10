@@ -17,4 +17,6 @@ public interface TaskRepository extends JpaRepository<Task, String> {
     List<Task> findAllBySchedule_Id(@Param("scheduleId") String userId);
 
     void deleteById(@Nonnull String id);
+
+
 }
